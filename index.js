@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser"; //allows us to take in incoming post request bodies
-import usersRoutes from "./routes/users";
+import usersRoutes from "./routes/users.js";
 
 /* this project is for handling users */
 /* 
@@ -10,12 +10,15 @@ import usersRoutes from "./routes/users";
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use("/users", usersRoutes);
-
 /* 
-  this just says that we're gonna use json data in our whole application, which is a common format for sending and requesting data from/to a rest api.
+  the body-parser middleware is used to parse JSON data from the request body, allowing you to handle POST requests that send JSON data in the body of the post request to create new users.
 */
 app.use(bodyParser.json());
+
+/*
+  every route we have in the users file will be prefixed with /users because we have that specified here. we're doing this because every endpoint/route should start with /users because we're working with users in this application.
+*/
+app.use("/users", usersRoutes);
 
 //creating routes we can send requests to and visit.
 /*
